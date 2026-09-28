@@ -1,6 +1,6 @@
 // Bump this number every time you upload a change. Phones see the new number,
 // download the fresh files, and drop the old copy.
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 6;
 const CACHE = 'ebbo-calc-v' + CACHE_VERSION;
 const FILES = ['./', 'index.html', 'manifest.json', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'];
 

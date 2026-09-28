@@ -21,7 +21,7 @@
 box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#050B1D;--card:#0B1433;--text:#EEF7FF;--muted:#9FB6CC;--line:#1C2A55;--field:#0F1A40;--num:#FF7867;--bar:#0061FF;--bar2:#D9E7F4}}
 :root[data-theme="dark"]{--bg:#050B1D;--card:#0B1433;--text:#EEF7FF;--muted:#9FB6CC;--line:#1C2A55;--field:#0F1A40;--num:#FF7867;--bar:#0061FF;--bar2:#D9E7F4}
-*,*::before,*::after{box-sizing:inherit}
+*,*::before,*::after{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 html,body{overscroll-behavior-y:none}
 body{margin:0;-webkit-tap-highlight-color:transparent;background:var(--bg);color:var(--text);font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
@@ -36,14 +36,14 @@ h1{font-size:1.55rem;line-height:1.2;font-weight:600;margin:18px 0 0;letter-spac
 main{padding:16px}
 .card{background:var(--card);border-radius:18px;padding:18px;margin-bottom:14px;border:1px solid var(--line)}
 label.f{display:block;font-weight:500;font-size:.95rem}
-.hint{display:block;color:var(--muted);font-size:.82rem;font-weight:400;margin-top:1px}
+.hint{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:.82rem;font-weight:400;margin-top:1px}
 .inrow{display:flex;gap:8px;align-items:center;margin-top:8px}
 input.n{font:inherit;font-size:1.25rem;min-height:48px;font-weight:600;color:var(--text);background:var(--field);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;outline:none}
 input.n:focus{border-color:var(--bright)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .chip{font:inherit;font-size:.95rem;min-height:44px;min-width:60px;background:var(--lblue);color:var(--bright);border:none;border-radius:999px;padding:8px 14px;cursor:pointer}
 .chip:active,.chip:hover{background:var(--bright);color:#fff}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:16px;align-items:end}
 .seg{display:flex;background:var(--lblue);border-radius:999px;padding:4px;gap:4px}
 .seg button{flex:1;font:inherit;font-size:.9rem;font-weight:500;border:none;background:transparent;color:var(--royal);border-radius:999px;padding:10px 0;min-height:44px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--bright);color:#fff}
@@ -63,7 +63,7 @@ summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font-size:1.3rem;line-height:1}
 details[open] summary::after{content:"–"}
 .ph{display:inline-block;font-size:.72rem;font-weight:600;background:var(--pcoral);color:#7a1f12;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.agrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px;align-items:end}
 .agrid input.n{font-size:1rem;padding:8px 10px}
 .note{font-size:.8rem;color:var(--muted);margin:10px 0 0}
 .phone{margin:14px auto 4px;max-width:260px;border:8px solid var(--ink);border-radius:30px;background:#fff;color:#050B1D;overflow:hidden;font-size:.78rem}
@@ -97,8 +97,8 @@ footer{padding:4px 20px 28px;color:var(--muted);font-size:.78rem}
 <div class="inrow"><input id="imp" class="n" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" data-form-type="other" autocomplete="off"></div>
 <div class="chips" id="impchips"></div>
 <div class="two">
-<div><label class="f" for="stores">Stores<span class="hint">0 if online only</span></label><div class="inrow"><input id="stores" class="n" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" data-form-type="other"></div></div>
-<div><label class="f" for="jpd">Joins per store per day</label><div class="inrow"><input id="jpd" class="n" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" data-form-type="other"></div></div>
+<div><label class="f" for="stores">Stores<span class="hint">Leave blank if online only</span></label><div class="inrow"><input id="stores" class="n" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" data-form-type="other"></div></div>
+<div><label class="f" for="jpd">Joins per store daily<span class="hint">Leave blank if unsure</span></label><div class="inrow"><input id="jpd" class="n" inputmode="decimal" autocomplete="off" autocorrect="off" spellcheck="false" data-form-type="other"></div></div>
 </div>
 </section>
 
@@ -136,7 +136,7 @@ footer{padding:4px 20px 28px;color:var(--muted);font-size:.78rem}
 </details>
 </section>
 </main>
-<footer>Illustrative estimate, not a guarantee of results. Revenue shown is the brand's share after refunds. Members join monthly and bill starting the month after they join. <span style="opacity:.6">v3</span></footer>
+<footer>Illustrative estimate, not a guarantee of results. Revenue shown is the brand's share after refunds. Members join monthly and bill starting the month after they join. <span style="opacity:.6">v6</span></footer>
 </div>
 <script>
 const CURVE=[0.23660000000000003, 0.16070833333333331, 0.10935, 0.07852500000000001, 0.058600000000000006, 0.04621666666666668, 0.03730833333333333, 0.03145833333333333, 0.026466666666666663, 0.022908333333333333, 0.019783333333333333, 0.01726666666666667, 0.01509166666666667, 0.013258333333333332, 0.012299999999999998, 0.011058333333333335, 0.009591666666666667, 0.009291666666666667, 0.0083, 0.007525, 0.006766666666666667, 0.0061333333333333335, 0.005733333333333333, 0.005491666666666666, 0.005108333333333334, 0.0046166666666666665, 0.004508333333333334, 0.0040166666666666675, 0.0035749999999999996, 0.0035416666666666665, 0.003499999999999999, 0.00325, 0.002975, 0.002766666666666666, 0.002625, 0.0025083333333333333, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 5.312499999999184e-05, 0];
@@ -187,18 +187,22 @@ function init(){
  document.querySelectorAll('input').forEach(i=>i.addEventListener('input',render));
  $('brand').addEventListener('keydown',e=>{if(e.key==='Enter')e.target.blur()});
  document.querySelectorAll('.seg button').forEach(bt=>bt.onclick=()=>{horizon=+bt.dataset.y;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===bt));render()});
- const live=$('live');
+ const live=$('live'),doneB=$('done');
  const place=()=>{const v=window.visualViewport;live.style.setProperty('--vvo',(v?v.offsetTop:0)+'px')};
  if(window.visualViewport){visualViewport.addEventListener('resize',place);visualViewport.addEventListener('scroll',place)}
  window.addEventListener('scroll',place,{passive:true});
- let hideT;
+ let typing=false,bigOut=false;
+ const sync=()=>{live.classList.toggle('on',typing||bigOut);doneB.style.display=typing?'':'none';place()};
+ new IntersectionObserver(es=>{const e=es[0];bigOut=!e.isIntersecting&&e.boundingClientRect.top<0;sync()},{threshold:0}).observe($('big'));
  document.querySelectorAll('input').forEach(i=>{
-  i.addEventListener('focus',()=>{clearTimeout(hideT);place();live.classList.add('on');setTimeout(place,300)});
-  i.addEventListener('blur',()=>{hideT=setTimeout(()=>live.classList.remove('on'),120)});
+  i.addEventListener('focus',()=>{typing=true;sync();setTimeout(place,300)});
+  i.addEventListener('blur',()=>{setTimeout(()=>{typing=document.activeElement&&document.activeElement.tagName==='INPUT';sync()},60)});
   i.addEventListener('keydown',e=>{if(e.key==='Enter')e.target.blur()});
  });
- $('done').addEventListener('pointerdown',e=>e.preventDefault());
- $('done').addEventListener('click',()=>{document.activeElement&&document.activeElement.blur();live.classList.remove('on')});
+ doneB.addEventListener('pointerdown',e=>e.preventDefault());
+ doneB.addEventListener('click',()=>{document.activeElement&&document.activeElement.blur()});
+ document.addEventListener('pointerdown',e=>{const a=document.activeElement;if(a&&a.tagName==='INPUT'&&e.target!==a&&!(e.target.closest&&e.target.closest('input')))a.blur()},true);
+ sync();
  render();
 }
 init();
